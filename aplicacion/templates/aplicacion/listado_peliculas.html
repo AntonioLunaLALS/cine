@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>Listado de Peliculas</h2>
+    <table>
+        <tr>
+            <th>nombre</th>
+            <th>duracion</th>
+            <th>fecha</th>
+            <th>Genero</th>
+            <th>opciones</th>
+        </tr>
+
+        {% for p in peliculas %}
+        <tr>
+            <th>{{p.nombre}}</th>
+            <th>{{p.duracion}}</th>
+            <th>{{p.fecha}}</th>
+            <th>{{p.Genero}}</th>
+            <th>
+                <a href=" {% url 'modificar_peli' p.id %} ">Modificar</a>
+                <a href="#" onclick="confirmarEliminacion({{p.id}})">Eliminar</a>
+            </th>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% block javascript %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{% static 'js/confirmar.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

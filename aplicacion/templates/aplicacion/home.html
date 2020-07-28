@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} home {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <header>
+
+        <img src="{% static 'imagenes/logo.jpg' %}" alt="logo" class="logo">
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'listar_peli' %}">Listado Peliculas</a></li>
+                <li><a href="{% url 'registrar_peli' %}">Nueva Pelicula</a></li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="">Usuario:{{user.username}}</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Iniciar Sesión</a>
+                </li>
+                <li>
+                    <a href="{% url 'registrar_usuario' %}">Registrar</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-pelicula">
+        <h2 class="titulo_contenedor_pelicula">Cartelera Semanal</h2>
+        {% for p in peliculas %}
+        <div>
+            {% if p.imagen %}
+            <img src="{{p.imagen.url}}" alt=""> 
+            <a href="#">Ver Horarios</a> 
+            {% endif %}
+        </div>
+         {% endfor %}
+    </div>
+
+    {% block content %}
+
+    <section>
+        <article>
+            <p>Esta es una practica sobre como crear una aplicacion con Django</p>
+        </article>
+    
+    {% endblock %}
+
+        <footer>Lorenzo Antonio Luna Sánchez</footer>
+    </section>
+</body>
+</html>
